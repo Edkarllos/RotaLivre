@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/cadastro.css">
+    <script src="https://kit.fontawesome.com/7a09e9e5d2.js" crossorigin="anonymous"></script>
+    <script defer src="/js/js.js"></script>
+</head>
+<body>
+
+   <div class="caixaTopo"> 
+        <div class="voltarSeta">
+            <a href="/htmls/index.html"><button type="button" class="voltarSeta"><i class="fa-solid fa-arrow-right fa-rotate-180" id="seta"></i></button></a>
+        </div>
+        <div class="cadastroDiv"> 
+            <h1 class="txtCadastro">Cadastro</h1>
+        </div>
+   </div>
+    <form id="cadastroForm">
+        <div class="caixaCadastro">
+
+            <div class="nome">
+            <label class="lblInformações">Nome</label>
+            <input type="text" class="caixaTexto" id="nome" placeholder="Insira seu nome">
+            </div>
+            
+            <div class="sobrenome">
+            <label class="lblInformações">Sobrenome</label>
+            <input type="text" class="caixaTexto" id="sobrenome" placeholder="Insira seu sobrenome">
+            </div>
+
+            <div class="cpf">
+            <label class="lblInformações">CPF</label>
+            <input type="text" class="caixaTexto" id="cpf" placeholder="Insira seu CPF">
+            </div>
+
+            <div class="email">
+            <label class="lblInformações">E-mail</label>
+            <input type="email" name="email" id="email" class="caixaTexto" placeholder="Insira seu email">
+            </div>
+
+            <div class="senha">
+            <label class="lblInformações">Senha</label>
+            <input type="password" name="senha" id="senha" class="caixaTexto" placeholder="Insira sua senha">
+            </div>
+
+            <div class="confirmarSenha">
+            <label class="lblInformações">Confirmar Senha</label>
+            <input type="password" name="confirmarSenha" id="confirmarSenha" class="caixaTexto" placeholder="Confirme sua senha">    
+            </div>
+            
+            <button type="button" class="botao" onclick="registrarUsuario()">Cadastrar</button>
+            <a href="/htmls/login.html" class="link">Já possui cadastro</a>
+        </div>
+    </form>
+
+</body>
+</html>

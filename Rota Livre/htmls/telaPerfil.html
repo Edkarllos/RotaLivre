@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Perfil</title>
+    <script src="https://kit.fontawesome.com/7a09e9e5d2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/telaPerfil.css">
+    <script defer src="/js/telaPerfil.js"></script>
+</head>
+<body>
+    <div class="caixaPerfil">
+        <div class="fotoPerfil">
+            <input type="file" name="flImage" id="flImage" accept="image/*" class="inserirImagem" disabled>
+        </div>
+        
+        <div class="informacoes">
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="nome">Nome</label>
+                <input type="text" class="caixaTexto" id="nome" placeholder="Insira seu nome" disabled>
+            </div>
+            
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="sobrenome">Sobrenome</label>
+                <input type="text" class="caixaTexto" id="sobrenome" placeholder="Insira seu sobrenome" disabled>
+            </div>
+
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="cpf">CPF</label>
+                <input type="text" class="caixaTexto" id="cpf" placeholder="Insira seu CPF" disabled>
+            </div>
+
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="dataNascimento">Data de Nascimento</label>
+                <input type="date" class="caixaTexto" id="dataNascimento" disabled>
+            </div>
+
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="email">E-mail</label>
+                <input type="email" class="caixaTexto" id="email" placeholder="Insira seu email" disabled>
+            </div>
+
+            <div class="inputGroup">
+                <label class="lblInformacoes" for="senha">Nova Senha</label>
+                <input type="password" class="caixaTexto" id="senha" placeholder="Insira sua senha" disabled>
+            </div>
+        </div>
+
+        <button type="button" id="editarPerfil" class="botaoEditar">Editar</button>
+        <div class="sair"><button type="button" onclick="voltarParaInicio()" class="sair"><i class="fa-solid fa-sign-out-alt iconSair"></i></button></div>
+    </div>
+
+    <div class="navBar">
+        <div><a href="/htmls/principal.html"><button type="button"><i class="fa-solid fa-house-chimney icon"></i></button></a></div>
+        <div><a href="/htmls/maps.html"><button type="button"><i class="fa-solid fa-map-location-dot icon"></i></button></a></div>
+        <div><a href="/htmls/blog.html"><button type="button"><i class="fa-solid fa-comment icon"></i></button></a></div>
+        <div><a href="/htmls/telaPerfil.html"><button type="button"><i class="fa-solid fa-user icon" id="ativada"></i></button></a></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarPerfil();
+
+            document.getElementById('flImage').addEventListener('change', tratarUploadImagem);
+            document.getElementById('editarPerfil').addEventListener('click', habilitarEdicao);
+        });
+
+        function carregarPerfil() {
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            if (usuario) {
+                document.getElementById('nome').value = usuario.nome || '';
+                document.getElementById('sobrenome').value = usuario.sobrenome || '';
+                document.getElementById('cpf').value = usuario.cpf || '';
+                document.getElementById('dataNascimento').value = usuario.dataNascimento || '';
+                document.getElementById('email').value = usuario.email || '';
+                document.getElementById('senha').value = usuario.senha || '';
+            }
+
+            const imagemPerfil = localStorage.getItem('imagemPerfil');
+            if (imagemPerfil) {
+                document.querySelector('.fotoPerfil').style.backgroundImage = `url(${imagemPerfil})`;
+            }
+        }
+
+        function salvarPerfil() {
+            const usuario = {
+                nome: document.getElementById('nome').value,
+                sobrenome: document.getElementById('sobrenome').value,
+                cpf: document.getElementById('cpf').value,
+                dataNascimento: document.getElementById('dataNascimento').value,
+                email: document.getElementById('email').value,
+                senha: document.getElementById('senha').value,
+            };
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+        }
+
+        function tratarUploadImagem(event) {
+            const arquivo = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imagemPerfil = e.target.result;
+                document.querySelector('.fotoPerfil').style.backgroundImage = `url(${imagemPerfil})`;
+                localStorage.setItem('imagemPerfil', imagemPerfil);
+            };
+            if (arquivo) {
+                reader.readAsDataURL(arquivo);
+            }
+        }
+
+        function habilitarEdicao() {
+            document.querySelectorAll('.caixaTexto').forEach(input => {
+                input.disabled = false;
+            });
+            document.getElementById('flImage').disabled = false;
+            document.getElementById('editarPerfil').textContent = "Salvar";
+            document.getElementById('editarPerfil').removeEventListener('click', habilitarEdicao);
+            document.getElementById('editarPerfil').addEventListener('click', desabilitarEdicao);
+        }
+
+        function desabilitarEdicao() {
+            document.querySelectorAll('.caixaTexto').forEach(input => {
+                input.disabled  = true;
+            });
+            document.getElementById('flImage').disabled = true;
+salvarPerfil();
+document.getElementById('editarPerfil').textContent = "Editar";
+document.getElementById('editarPerfil').removeEventListener('click', desabilitarEdicao);
+document.getElementById('editarPerfil').addEventListener('click', habilitarEdicao);
+}
+function voltarParaInicio() {
+            window.location.href = '/htmls/index.html';
+        }
+</script>
+
+</body>
+</html>

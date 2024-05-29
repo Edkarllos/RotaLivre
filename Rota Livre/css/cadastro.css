@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #66b8bd;
+}
+
+.caixaCadastro{
+    width: 100vw;
+    height: 90vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 90px 0 0 0;
+    position: fixed;
+    top: 14%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.caixaTexto{
+    width: 90%;
+    height: 40px;
+    background-color: rgb(255, 249, 249);
+    border: none;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #427d80;
+    font-size: 16px;
+    padding-left: 10px;
+}
+::placeholder{
+    color: #427d80b0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.lblInformações{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #427d80;
+    margin-left: 2%'';
+    font-weight: bold;
+}
+
+
+.txtCadastro{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #bcfff0;
+    font-size: 40px;
+}
+
+.botao{
+    width: 75vw;
+    height: 40px;
+    background-color: #427d80;
+    color:  #bcfff0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+
+}
+
+.link{
+    margin-top: 10px;
+    color: #427d80;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 40px;
+}
+
+.nome{
+    width: 90vw;
+    height: 70px;
+    margin-top: 40px;
+    margin-left: 50px;
+    
+}
+
+.sobrenome{
+    width: 90vw;
+    height: 70px;
+    margin-left: 50px;
+}
+
+.cpf{
+    width: 90vw;
+    height: 70px;
+    margin-left: 50px;
+}
+
+.email{
+    width: 90vw;
+    height: 70px;
+    margin-left: 50px;
+}
+
+.senha{
+    width: 90vw;
+    height: 70px;
+    margin-left: 50px;
+}
+
+.confirmarSenha{
+    width: 90vw;
+    height: 70px;
+    margin-left: 50px;
+}
+
+.cadastroDiv{
+    width: 70vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.caixaTopo{
+    width: 100vw;
+    height: 14vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voltarSeta{
+    width: 40px;
+    height: 40px;
+    background-color: #66b8bd;
+    border: none;
+    position: fixed;
+    top: 46px;
+    left: 10px;
+}
+
+#seta{
+    font-size: 25px;
+    color: #bcfff0;
+}

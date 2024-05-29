@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/mapa.css" media="screen" />
+    <title>Teste</title>
+    <script src="https://kit.fontawesome.com/7a09e9e5d2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="mapa">
+    </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+
+
+
+    <script>
+        const mapa = L.map('mapa').setView([-24.0924, -46.6213], 16);
+        const layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        layer.addTo(mapa);
+
+        const savedMarkers = JSON.parse(localStorage.getItem('markers')) || [];
+        savedMarkers.forEach(markerData => {
+            const marker = L.marker(markerData.latlng);
+            marker.bindPopup(`${markerData.message} <br> <input type="button" value="Excluir" onclick="removeMarker('${markerData.id}')">`).openPopup();
+            marker._id = markerData.id; 
+            marker.addTo(mapa);
+        });
+
+        function saveMarkers() {
+            const markers = [];
+            mapa.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    markers.push({
+                        id: layer._id,
+                        latlng: layer.getLatLng(),
+                        message: layer.getPopup().getContent().split('<br>')[0]
+                    });
+                }
+            });
+            localStorage.setItem('markers', JSON.stringify(markers));
+        }
+
+        function onMapClick(e) {
+            const message = prompt("Insira uma mensagem para este local:");
+            if (message !== null && message.trim() !== "") {
+                const id = Date.now().toString(); 
+                const newMarker = L.marker(e.latlng).addTo(mapa);
+                newMarker._id = id; 
+                newMarker.bindPopup(`${message} <br> <input type="button" value="Excluir" onclick="removeMarker('${id}')">`).openPopup();
+                saveMarkers();
+            }
+        }
+        mapa.on('click', onMapClick);
+
+        function removeMarker(id) {
+            mapa.eachLayer(layer => {
+                if (layer instanceof L.Marker && layer._id === id) {
+                    mapa.removeLayer(layer);
+                }
+            });
+            saveMarkers();
+        }
+
+        function removeAllMarkers() {
+            mapa.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    mapa.removeLayer(layer);
+                }
+            });
+            localStorage.removeItem('markers');
+        }
+
+        const removeButton = document.getElementById('button');
+        removeButton.textContent = 'Remover todos os marcadores';
+        removeButton.onclick = removeAllMarkers;
+        document.body.appendChild(removeButton);
+    </script>
+
+
+     <div class="navBar">
+        <div><a href="/htmls/principal.html"><button type="button"><i class="fa-solid fa-house-chimney icon" ></i></button></a></div>
+        <div><a href="/htmls/maps.html"><button type="button"><i class="fa-solid fa-map-location-dot icon" id="ativada"></i></button></a></div>
+        <div><a href="/htmls/blog.html"><button type="button"><i class="fa-solid fa-comment icon"></i></button></a></div>
+        <div><a href="/htmls/telaPerfil.html"><button type="button"><i class="fa-solid fa-user icon"></i></a></div>
+    </div>
+
+</body>
+</html>
